@@ -2,6 +2,7 @@ import React, { useCallback, useId, useState } from 'react';
 
 import { CardProps } from './types';
 import { useHandlers, useToggleStates } from './hooks';
+import logo from '../../../assets/media/card-image.png';
 
 import clsx from 'clsx';
 
@@ -85,7 +86,7 @@ const Card: React.FC<CardProps> = React.memo(
                             className={clsx('image-cat', {
                                 'disabled-style': isDisabledCard,
                             })}
-                            src={'src/assets/media/card-image.png'}
+                            src={logo}
                         />
                         <div
                             className={clsx('circle-weight', {
