@@ -267,14 +267,24 @@ body::before {
         align-items: flex-start;
     }
 
+    .title-container {
+        width: 768px;
+        justify-self: center;
+    }
     .card-content {
         margin-top: 10px;
+    }
+    .card-container {
+        height: 440px;
+    }
+    .image-cat {
+        height: 60%;
     }
 }
 
 @media (max-width: 767px) {
     .box-container {
-        width: 350px;
+        width: 450px;
         flex-direction: column;
         align-items: center;
         margin-top: 10px;
@@ -291,5 +301,28 @@ body::before {
 
     .image-cat {
         height: 53%;
+    }
+}
+
+@media (max-width: 450px) {
+    .box-container {
+        width: 320px;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .title-container {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        font-size: 24px;
+    }
+
+    .card-container {
+        height: 300px;
+    }
+
+    .image-cat {
+        height: 40%;
     }
 }
