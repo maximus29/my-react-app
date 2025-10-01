@@ -194,6 +194,7 @@ body::before {
     position: absolute;
     bottom: 0;
     left: 0;
+    background-image: url('assets/media/card-image.png');
 }
 
 .circle-weight {
