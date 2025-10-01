@@ -18,6 +18,7 @@ const Card: React.FC<CardProps> = React.memo(
         setDisabledCards,
     }) => {
         const [isHovered, setIsHovered] = useState<boolean>(false);
+        const [isFirstClick, setIsFirstClick] = useState<boolean>(false);
 
         const uniqID: string = useId();
 
@@ -28,7 +29,13 @@ const Card: React.FC<CardProps> = React.memo(
             weight,
         );
 
-        const { handleSelectCard, handleFormatMessage, getFooterInfo, handleClickEnableDisableButton } = useHandlers(
+        const {
+            handleSelectCard,
+            handleFormatMessage,
+            getFooterInfo,
+            handleClickEnableDisableButton,
+            handleChangeHover,
+        } = useHandlers(
             isFirstCard,
             isSecondCard,
             isThirdCard,
@@ -36,6 +43,8 @@ const Card: React.FC<CardProps> = React.memo(
             isDisabledCard,
             setSelectedCards,
             setDisabledCards,
+            setIsHovered,
+            setIsFirstClick,
         );
 
         return (
@@ -45,18 +54,20 @@ const Card: React.FC<CardProps> = React.memo(
                         'card-container-selected': isSelectedCard,
                         'card-container-disabled': isDisabledCard,
                     })}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
+                    onMouseEnter={() => handleChangeHover()}
+                    onMouseLeave={() => handleChangeHover()}
                     onClick={() => handleSelectCard(uniqID)}
                 >
                     <div className="card-content">
                         <span
                             className={clsx('title-card', {
                                 'disabled-style': isDisabledCard,
-                                'hovered-style': isHovered && isSelectedCard,
+                                'hovered-style': isHovered && isSelectedCard && !isDisabledCard && !isFirstClick,
                             })}
                         >
-                            {isHovered && isSelectedCard ? 'Котэ не одобряет?' : 'Сказочное заморское яство'}
+                            {isHovered && isSelectedCard && !isDisabledCard && !isFirstClick
+                                ? 'Котэ не одобряет?'
+                                : 'Сказочное заморское яство'}
                         </span>
                         <span
                             className={clsx('title-card-bold', {

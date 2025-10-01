@@ -12,6 +12,8 @@ const useHandlers = (
     isDisabledCard: boolean,
     setSelectedCards: React.Dispatch<React.SetStateAction<string[]>>,
     setDisabledCards: React.Dispatch<React.SetStateAction<string[]>>,
+    setIsHovered: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsFirstClick: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
     const handleSelectCard = useCallback(
         (id: string) => {
@@ -23,15 +25,17 @@ const useHandlers = (
 
                     if (findElementPosition > -1) {
                         newValue.splice(findElementPosition, 1);
+                        setIsFirstClick(false);
                     } else {
                         newValue.push(id);
+                        setIsFirstClick(true);
                     }
 
                     return newValue;
                 });
             }
         },
-        [isDisabledCard, setSelectedCards],
+        [isDisabledCard, setSelectedCards, setIsFirstClick],
     );
 
     const handleFormatMessage = useCallback((message: string): (string | JSX.Element)[] => {
@@ -86,7 +90,12 @@ const useHandlers = (
         [setDisabledCards],
     );
 
-    return { handleSelectCard, handleFormatMessage, getFooterInfo, handleClickEnableDisableButton };
+    const handleChangeHover = useCallback(() => {
+        setIsHovered((oldValue) => !oldValue);
+        setIsFirstClick(false);
+    }, []);
+
+    return { handleSelectCard, handleFormatMessage, getFooterInfo, handleClickEnableDisableButton, handleChangeHover };
 };
 
 export default useHandlers;
